@@ -9,6 +9,7 @@
   "author": "Christopher Tiller",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.16.3",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5"
   }
