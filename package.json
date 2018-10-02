@@ -1,0 +1,11 @@
+{
+  "name": "sakugabooru_viewer",
+  "version": "1.0.0",
+  "description": "A responsive mobile-first viewer of the items on Sakugabooru",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christopher Tiller",
+  "license": "ISC"
+}
