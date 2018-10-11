@@ -4,7 +4,8 @@
     <div class="video-images"></div>
     <ul>
       <li v-for="item in searchData"
-          v-bind:key="item.id">
+          v-bind:key="item.id"
+          v-on:click="updateVideoActive(searchData, item.id)">
         <VideoBox v-bind:videoData="item">"</VideoBox>
       </li>
     </ul>
@@ -17,7 +18,7 @@ import VideoBox from '../components/VideoBox.vue';
 
 const api = new APIService();
 
-console.log(api);
+//console.log(api);
 
 export default {
   name: 'HelloWorld',
@@ -32,10 +33,28 @@ export default {
   props: {
     msg: String
   },
+  methods: {
+    updateVideoActive(data, ind){
+      const updatedVideoActivity = data.map((m) => {
+                                      if(m.id === ind){
+                                        m.videoActive = true;
+                                      } else {
+                                        m.videoActive = false;
+                                      }
+                                      return m;
+                                    });
+
+      this.searchData = updatedVideoActivity;
+    }
+  },
   created () {
       api.getTodos()
       .then((response) => {
-          this.searchData = response;
+          this.searchData = response
+                            .map((m) => {
+                                m.videoActive = false;
+                                return m;
+                              });
       });
   }
 }

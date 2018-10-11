@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Welcome to the Sakugabooru viewer!"/>
+    <MainPage msg="Welcome to the Sakugabooru viewer!"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MainPage from './components/MainPage.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    MainPage
   }
 }
 </script>

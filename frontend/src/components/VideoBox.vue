@@ -1,23 +1,24 @@
 
 <template>
-    <div class="video-box" 
-         v-on:click="play_video = true">
-        <div v-if="!play_video">
+    <div class="video-box" >
+        <div v-if="!videoData.videoActive">
             <img v-bind:src="videoData['preview_url']">
         </div>
         <div v-else>
-            <video controls>
-                <source v-bind:src="videoData['jpeg_url']" type="video/mp4">
-            </video>
+            <VideoModal v-bind:videoDataUrl="videoData['jpeg_url']"></VideoModal>
         </div>
 
     </div>
 </template>
 
 <script>
+import VideoModal from './VideoModal.vue';
 
 export default {
   name: 'Videobox',
+  components: {
+      VideoModal
+  },
   data: function () {
     return {
       play_video: false,
