@@ -2,6 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <div class="video-images"></div>
+    <VideoSearch></VideoSearch>
     <ul>
       <li v-for="item in searchData"
           v-bind:key="item.id"
@@ -15,6 +16,7 @@
 <script>
 import APIService from '../services/search.svc.js';
 import VideoBox from '../components/VideoBox.vue';
+import VideoSearch from '../components/VideoSearch.vue';
 
 const api = new APIService();
 
@@ -23,7 +25,8 @@ const api = new APIService();
 export default {
   name: 'HelloWorld',
   components: {
-    VideoBox
+    VideoBox,
+    VideoSearch,
   },
   data: function () {
     return {
