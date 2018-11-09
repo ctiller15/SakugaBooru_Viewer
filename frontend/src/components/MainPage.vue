@@ -1,5 +1,5 @@
-<template >
-  <div class="hello">
+<template>
+  <div>
     <h1>{{ msg }}</h1>
     <div class="video-images"></div>
     <VideoSearch v-on:update-data="searchData = $event"></VideoSearch>
@@ -37,20 +37,12 @@ export default {
   methods: {
     updateVideoActive(data, ind){
       const updatedVideoActivity = data.map((m) => {
-                                      if(m.id === ind){
-                                        m.videoActive = true;
-                                      } else {
-                                        m.videoActive = false;
-                                      }
+                                      m.videoActive = m.id === ind;
                                       return m;
                                     });
 
       this.searchData = updatedVideoActivity;
     },
-    updateSearchResult() {
-      console.log("HA! I WORK!");
-      //console.log(data);
-    }
   },
   created () {
       api.getTodos()
