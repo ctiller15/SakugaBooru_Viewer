@@ -37,4 +37,21 @@ export default class APIService{
             return response.data;
         });
     }
+
+    getBooruTags(query) {
+        console.log("Getting the tags!");
+        const baseUrl = 'http://localhost:3000/tags/';
+
+        let url = baseUrl;
+
+        if(query) {
+            url += `${query}/`;
+        }
+
+        return axios.get(url).then((response) => {
+            return response.data;
+        }, (error) => {
+            return error;
+        });
+    }
 }

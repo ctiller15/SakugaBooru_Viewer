@@ -20,6 +20,7 @@ export default {
     return {
       searchQuery: "",
       timerId: null,
+      typeAheadResults: [],
     }
   },
   methods: {
@@ -37,6 +38,14 @@ export default {
       typeAheadSearch(query) {
           return () => {
             console.log(query);
+            api.getBooruTags(query)
+                .then((response) => {
+                    console.log(response);
+                    this.typeAheadResults = response;
+                    console.log(this.typeAheadResults);
+                }, (error) => {
+                    console.log(error);
+                });
           }
 
       }

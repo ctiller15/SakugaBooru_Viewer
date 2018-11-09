@@ -12,7 +12,19 @@ const getBooruData = (query) => {
     return rp.get({
         uri: uri,
         json: true
-        });
+    });
+}
+
+const getBooruTags = (query) => {
+    let uri = "https://www.sakugabooru.com/tag.json?limit=10";
+    if(query){
+        uri += `&name=${query}`;
+    }
+
+    return rp.get({
+        uri: uri,
+        json: true
+    });
 }
 
 app.use(function(req, res, next) {
@@ -23,7 +35,7 @@ app.use(function(req, res, next) {
 
 app.get('/', (req, res) => {
     //console.log(req);
-    console.log("I've been hit!!!");
+    //console.log("I've been hit!!!");
     getBooruData()
         .then((response) => {
             res.send(response);
@@ -37,6 +49,16 @@ app.get('/search/:searchQuery', (req, res) => {
         .then((response) => {
             res.send(response);
         });
+});
+
+app.get('/tags/:searchQuery', (req, res) => {
+    console.log(req.params.searchQuery);
+    const searchQuery = req.params.searchQuery;
+    getBooruTags(searchQuery)
+        .then((response) => {
+            res.send(response);
+        });
+
 })
 
 app.listen(port, () => {
