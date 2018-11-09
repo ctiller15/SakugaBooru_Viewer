@@ -6,27 +6,36 @@ export default class APIService{
 
     }
 
-    getTodos() {
-        const url = 'http://localhost:3000/';
+    // add a "mode" option.
+    getTodos(query) {
+        const baseUrl = 'http://localhost:3000/';
+
+        let url = baseUrl;
+
+        if(query){
+            url += `${query}/`;
+        }
+        //const url = `http://localhost:3000/${query}`;
 
         return axios.get(url).then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
+            return response.data;
+        });
+    }
+
+    searchBooru(query) {
+        const baseUrl = 'http://localhost:3000/search/';
+
+        let url = baseUrl;
+
+        if(query){
+            url += `${query}/`;
+        }
+        //const url = `http://localhost:3000/${query}`;
+
+        return axios.get(url).then((response) => {
+            //console.log(response.data);
             return response.data;
         });
     }
 }
-
-// const api = new APIService();
-
-// var app = new Vue({
-//     el: '#app',
-//     data: {
-//         message: {}
-//     },
-//     created () {
-//         api.getTodos()
-//         .then((response) => {
-//             this.message = response;
-//         })
-//     }
-// });

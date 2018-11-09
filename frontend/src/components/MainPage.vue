@@ -1,8 +1,8 @@
-<template>
+<template >
   <div class="hello">
     <h1>{{ msg }}</h1>
     <div class="video-images"></div>
-    <VideoSearch></VideoSearch>
+    <VideoSearch v-on:update-data="searchData = $event"></VideoSearch>
     <ul>
       <li v-for="item in searchData"
           v-bind:key="item.id"
@@ -20,8 +20,6 @@ import VideoSearch from '../components/VideoSearch.vue';
 
 const api = new APIService();
 
-//console.log(api);
-
 export default {
   name: 'HelloWorld',
   components: {
@@ -30,7 +28,7 @@ export default {
   },
   data: function () {
     return {
-      searchData: {},
+      searchData: [],
     }
   },
   props: {
@@ -48,6 +46,10 @@ export default {
                                     });
 
       this.searchData = updatedVideoActivity;
+    },
+    updateSearchResult() {
+      console.log("HA! I WORK!");
+      //console.log(data);
     }
   },
   created () {

@@ -1,19 +1,15 @@
-
 <template>
     <div class="video-search">
-        <!-- <div v-if="!videoData.videoActive">
-            <img v-bind:src="videoData['preview_url']">
-        </div>
-        <div v-else>
-            <VideoModal v-bind:videoDataUrl="videoData['jpeg_url']"></VideoModal>
-        </div> -->
-        <input type="text">
-
+        <input v-model="searchQuery"
+                type="text">
+        <button v-on:click="conductSearch(searchQuery)">Search!</button>
     </div>
 </template>
 
 <script>
-//import VideoModal from './VideoModal.vue';
+
+import APIService from '../services/search.svc.js';
+const api = new APIService();
 
 export default {
   name: 'VideoSearch',
@@ -22,11 +18,30 @@ export default {
   },
   data: function () {
     return {
-      //play_video: false,
+      searchQuery: ""
     }
   },
   props: {
-    //videoData: Object
+    // searchData: {
+    //     type: Array,
+    //     default: () => []
+    // }
+  },
+  methods: {
+    //   init() {
+    //       console.log(this.searchData);
+    //   },
+      conductSearch(query) {
+          console.log(`Searching on ${query}!`);
+          api.searchBooru(query)
+            .then((response) => {
+                console.log(response);
+                this.$emit('update-data', response);
+            });
+      }
+  },
+  mounted() {
+      //this.init();
   }
 }
 
