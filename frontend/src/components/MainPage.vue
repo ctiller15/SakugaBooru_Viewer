@@ -45,7 +45,7 @@ export default {
     },
   },
   created () {
-      api.getTodos()
+      api.searchBooru()
       .then((response) => {
           this.searchData = response
                             .map((m) => {
