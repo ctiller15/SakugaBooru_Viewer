@@ -1,13 +1,16 @@
 <template>
-  <div>
+  <div v-on:click="checkPageClick($event)">
     <h1>{{ msg }}</h1>
     <div class="video-images"></div>
-    <VideoSearch v-on:update-data="searchData = $event"></VideoSearch>
+    <VideoSearch v-on:update-data="searchData = $event"
+                 v-on:search-box-mounted="searchBoxElement = $event"
+                 v-on:search-box-inactive="searchBoxActive = false"
+                 v-bind:searchBoxActive="searchBoxActive"></VideoSearch>
     <ul>
       <li v-for="item in searchData"
           v-bind:key="item.id"
           v-on:click="updateVideoActive(searchData, item.id)">
-        <VideoBox v-bind:videoData="item">"</VideoBox>
+        <VideoBox v-bind:videoData="item"></VideoBox>
       </li>
     </ul>
   </div>
@@ -29,6 +32,8 @@ export default {
   data: function () {
     return {
       searchData: [],
+      searchBoxElement: null,
+      searchBoxActive: false,
     }
   },
   props: {
@@ -42,6 +47,9 @@ export default {
                                     });
 
       this.searchData = updatedVideoActivity;
+    },
+    checkPageClick($event){
+      this.searchBoxActive = $event.path.includes(this.searchBoxElement)
     },
   },
   created () {
