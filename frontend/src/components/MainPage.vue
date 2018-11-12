@@ -3,8 +3,7 @@
     <h1>{{ msg }}</h1>
     <div class="video-images"></div>
     <VideoSearch v-on:update-data="searchData = $event"
-                 v-on:search-box-mounted="searchBoxElement = $event"
-                 v-on:search-box-inactive="searchBoxActive = false"
+                 v-on:search-box-mounted="initializeRefs($event)"
                  v-bind:searchBoxActive="searchBoxActive"></VideoSearch>
     <ul>
       <li v-for="item in searchData"
@@ -33,6 +32,8 @@ export default {
     return {
       searchData: [],
       searchBoxElement: null,
+      searchBoxButton: null,
+      searchBoxResults: null,
       searchBoxActive: false,
     }
   },
@@ -49,8 +50,16 @@ export default {
       this.searchData = updatedVideoActivity;
     },
     checkPageClick($event){
-      this.searchBoxActive = $event.path.includes(this.searchBoxElement)
+      const searchBoxClicked = $event.path.includes(this.searchBoxElement);
+      const searchBoxButtonClicked = $event.path.includes(this.searchBoxButton);
+      const searchBoxResultsClicked = $event.path.includes(this.searchBoxResults);
+      this.searchBoxActive = searchBoxClicked && !(searchBoxButtonClicked || searchBoxResultsClicked);
     },
+    initializeRefs($event){
+      this.searchBoxElement = $event["searchBox"];
+      this.searchBoxButton = $event["searchButton"];
+      this.searchBoxResults = $event["resultsList"];
+    }
   },
   created () {
       api.searchBooru()

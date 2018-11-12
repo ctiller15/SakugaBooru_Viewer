@@ -4,14 +4,18 @@
         <div class="video-search">
             <input  v-model="searchQuery"
                     type="text"
-                    v-on:input="debouncedTypeAhead(searchQuery)">
-            <button v-on:click="conductSearch(searchQuery)">Search!</button>
+                    v-on:input="debouncedTypeAhead(currentSearchParam, $event)">
+            <button v-on:click="conductSearch(searchQuery)"
+                    ref="searchButton">Search!</button>
         </div>
         <div class="typeahead-results"
-            v-if="searchBoxActive">
-            <ul>
-                <li v-for="result in typeAheadResults"
-                    v-bind:key="result.id">{{ result.name }}</li>
+            v-show="searchBoxActive">
+            <ul class="results-list"
+                ref="resultsList">
+                <li class="text-left"
+                    v-for="result in typeAheadResults"
+                    v-bind:key="result.id"
+                    v-on:click="updateSearchParams(result.name)">{{ result.name }}</li>
             </ul>
         </div>
     </div>
@@ -30,17 +34,28 @@ export default {
     return {
       searchQuery: "",
       timerId: null,
-      typeAheadResults: []
+      typeAheadResults: [],
+      baseResultString: "",
+      currentSearchParam: "",
     }
   },
   methods: {
       conductSearch(query) {
           api.searchBooru(query)
             .then((response) => {
-                this.$emit("update-data", response);
+                const searchData = response.map(m => {
+                    m.videoActive = false;
+                    return m;
+                });
+                this.$emit("update-data", searchData);
             });
+        this.searchQuery = "";
+        this.$emit("search-box-inactive");
       },
       debouncedTypeAhead(query){
+          // update the tag matcher.
+          this.updateCurrentSearchParam();
+
           // Creates, and then uses the debounce function.
           const debounceFunc = perf.debounce(500, this.typeAheadSearch(query), this.timerId);
           this.timerId = debounceFunc();
@@ -53,20 +68,45 @@ export default {
                         this.typeAheadResults = response;
                     }, (error) => {
                         return error;
-                        //console.log(error);
                     });
             } else{
                 this.$emit("search-box-inactive");
             }
           }
+      },
+      updateSearchParams(resultName) {
+          if(this.baseResultString === ""){
+            this.baseResultString += resultName;
+          } else {
+            this.baseResultString += ` ${resultName}`;
+          }
+
+          this.searchQuery = this.baseResultString;
+            this.$emit("search-box-inactive");
+      },
+      updateCurrentSearchParam(){
+          this.currentSearchParam = this.searchQuery
+                                    .replace(this.baseResultString, "")
+                                    .trim();
       }
   },
   props: {
       searchBoxActive: Boolean,
   },
   mounted() {
-      this.$emit("search-box-mounted", this.$refs["searchBox"]);
+      this.$emit("search-box-mounted", this.$refs);
   }
 }
 
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.typeahead-results .results-list{
+    list-style: none;
+}
+
+.text-left {
+    text-align: left;
+}
+</style>
