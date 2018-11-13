@@ -5,7 +5,8 @@
             <img v-bind:src="videoData['preview_url']">
         </div>
         <div v-else>
-            <VideoModal v-bind:videoDataUrl="videoData['jpeg_url']"></VideoModal>
+            <VideoModal v-bind:videoDataUrl="videoData['file_url']"
+                        v-bind:videoTags="videoData['videoTags']"></VideoModal>
         </div>
 
     </div>

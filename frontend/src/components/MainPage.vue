@@ -44,6 +44,7 @@ export default {
     updateVideoActive(data, ind){
       const updatedVideoActivity = data.map((m) => {
                                       m.videoActive = m.id === ind;
+                                      m.videoTags = m.tags.split(" ");
                                       return m;
                                     });
 
@@ -67,6 +68,8 @@ export default {
           this.searchData = response
                             .map((m) => {
                                 m.videoActive = false;
+                                m.videoTags = m.tags.split(" ");
+                                console.log(m.videoTags);
                                 return m;
                               });
       });
