@@ -17,6 +17,7 @@
 
 <script>
 import APIService from '../services/search.svc.js';
+import frontEndCache from '../services/cache.svc.js';
 import VideoBox from '../components/VideoBox.vue';
 import VideoSearch from '../components/VideoSearch.vue';
 
@@ -60,19 +61,29 @@ export default {
       this.searchBoxElement = $event["searchBox"];
       this.searchBoxButton = $event["searchButton"];
       this.searchBoxResults = $event["resultsList"];
+    },
+    defaultSearch(){
+      return api.searchBooru();
+      // .then((response) => {
+      //     return response
+      //                       .map((m) => {
+      //                           m.videoActive = false;
+      //                           m.videoTags = m.tags.split(" ");
+      //                           //console.log(m.videoTags);
+      //                           return m;
+      //                         });
+      //     console.log(response);
+      //     console.log(this.searchData);
+      //     return this.searchData;
+      // });
     }
   },
   created () {
-      api.searchBooru()
-      .then((response) => {
-          this.searchData = response
-                            .map((m) => {
-                                m.videoActive = false;
-                                m.videoTags = m.tags.split(" ");
-                                console.log(m.videoTags);
-                                return m;
-                              });
-      });
+      const fiveMinsMilliseconds = 300000;
+      frontEndCache.privateCache("search", "", this.defaultSearch, fiveMinsMilliseconds)
+        .then((response) => {
+          this.searchData = response;
+        });
   }
 }
 </script>
