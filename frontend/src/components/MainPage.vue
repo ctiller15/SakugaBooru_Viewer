@@ -5,19 +5,21 @@
     <VideoSearch v-on:update-data="searchData = $event"
                  v-on:search-box-mounted="initializeRefs($event)"
                  v-bind:searchBoxActive="searchBoxActive"></VideoSearch>
-    <ul>
+    <ul v-if="searchData.length > 0">
       <li v-for="item in searchData"
           v-bind:key="item.id"
           v-on:click="updateVideoActive(searchData, item.id)">
         <VideoBox v-bind:videoData="item"></VideoBox>
       </li>
     </ul>
+    <div v-else>
+      Couldn't find anything! Try another search?
+    </div>
   </div>
 </template>
 
 <script>
 import APIService from '../services/search.svc.js';
-import frontEndCache from '../services/cache.svc.js';
 import VideoBox from '../components/VideoBox.vue';
 import VideoSearch from '../components/VideoSearch.vue';
 
@@ -63,27 +65,14 @@ export default {
       this.searchBoxResults = $event["resultsList"];
     },
     defaultSearch(){
-      return api.searchBooru();
-      // .then((response) => {
-      //     return response
-      //                       .map((m) => {
-      //                           m.videoActive = false;
-      //                           m.videoTags = m.tags.split(" ");
-      //                           //console.log(m.videoTags);
-      //                           return m;
-      //                         });
-      //     console.log(response);
-      //     console.log(this.searchData);
-      //     return this.searchData;
-      // });
+      return api.searchBooru()
+      .then((response) => {
+          this.searchData = response;
+      });
     }
   },
   created () {
-      const fiveMinsMilliseconds = 300000;
-      frontEndCache.privateCache("search", "", this.defaultSearch, fiveMinsMilliseconds)
-        .then((response) => {
-          this.searchData = response;
-        });
+      this.defaultSearch();
   }
 }
 </script>
