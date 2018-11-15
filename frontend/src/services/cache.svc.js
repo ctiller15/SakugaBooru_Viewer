@@ -4,7 +4,7 @@ class cacheService{
     }
 
     // use sessionStorage.
-    privateCache(queryType, queryParam, callback, storageTime) {
+    createPrivateCache(queryType, queryParam, callback, storageTime) {
         const nowms = (new Date()).getTime();
         const storageKey = `${queryType}-${queryParam}`;
         const storageData = JSON.parse(sessionStorage.getItem(storageKey));
@@ -20,7 +20,7 @@ class cacheService{
             return callback(queryParam)
             .then((response) => {
                 const storageObject = {
-                    cacheData: response,
+                    cacheData: response.data,
                     time: nowms
                 }
                 sessionStorage.setItem(storageKey, JSON.stringify(storageObject));
