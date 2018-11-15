@@ -1,6 +1,6 @@
 
 <template>
-    <div class="video-box" >
+    <div class="video-box">
         <div v-if="!videoData.videoActive">
             <img v-bind:src="videoData['preview_url']">
         </div>

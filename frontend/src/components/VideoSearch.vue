@@ -4,7 +4,7 @@
         <div class="video-search">
             <input  v-model="searchQuery"
                     type="text"
-                    v-on:input="debouncedTypeAhead(currentSearchParam, $event)">
+                    v-on:input="debouncedTypeAhead($event)">
             <button v-on:click="conductSearch(searchQuery)"
                     ref="searchButton">Search!</button>
         </div>
@@ -43,21 +43,17 @@ export default {
       conductSearch(query) {
           api.searchBooru(query)
             .then((response) => {
-                const searchData = response.map(m => {
-                    m.videoActive = false;
-                    return m;
-                });
-                this.$emit("update-data", searchData);
+                this.$emit("update-data", response);
             });
         this.searchQuery = "";
+        this.baseResultString = "";
+        this.typeAheadResults = [];
         this.$emit("search-box-inactive");
       },
-      debouncedTypeAhead(query){
-          // update the tag matcher.
-          this.updateCurrentSearchParam();
-
+      debouncedTypeAhead(){
           // Creates, and then uses the debounce function.
-          const debounceFunc = perf.debounce(500, this.typeAheadSearch(query), this.timerId);
+          const query = this.updateCurrentSearchParamAndReturn();
+          const debounceFunc = perf.debounce(250, this.typeAheadSearch(query), this.timerId);
           this.timerId = debounceFunc();
       },
       typeAheadSearch(query) {
@@ -70,6 +66,7 @@ export default {
                         return error;
                     });
             } else{
+                this.typeAheadResults = [];
                 this.$emit("search-box-inactive");
             }
           }
@@ -84,10 +81,12 @@ export default {
           this.searchQuery = this.baseResultString;
             this.$emit("search-box-inactive");
       },
-      updateCurrentSearchParam(){
+      updateCurrentSearchParamAndReturn(){
           this.currentSearchParam = this.searchQuery
                                     .replace(this.baseResultString, "")
                                     .trim();
+
+          return this.currentSearchParam;
       }
   },
   props: {
