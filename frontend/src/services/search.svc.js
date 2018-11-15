@@ -1,41 +1,34 @@
 import axios from 'axios';
+import frontEndCache from './cache.svc.js';
 
 export default class APIService{
     constructor() {
 
     }
 
-    // add a "mode" option.
-    getTodos(query) {
-        const baseUrl = 'http://localhost:3000/';
-
-        let url = baseUrl;
-
-        if(query){
-            url += `${query}/`;
+    getFactory(url){
+        const getFunc = () => {
+            return axios.get(url);
         }
 
-        return axios.get(url).then((response) => {
-            return response.data;
-        });
+        return getFunc;
     }
 
-    searchBooru(query) {
+    searchBooru(query = "") {
         const baseUrl = 'http://localhost:3000/search/';
+        const fiveMinMs = 300000;
 
         let url = baseUrl;
 
         if(query){
             url += `${query}/`;
         }
-
-        return axios.get(url).then((response) => {
-            return response.data;
-        });
+        return frontEndCache.createPrivateCache("search", query, this.getFactory(url), fiveMinMs);
     }
 
     getBooruTags(query) {
         const baseUrl = 'http://localhost:3000/tags/';
+        const dayInMs = 86400000;
 
         let url = baseUrl;
 
@@ -43,10 +36,6 @@ export default class APIService{
             url += `${query}/`;
         }
 
-        return axios.get(url).then((response) => {
-            return response.data;
-        }, (error) => {
-            return error;
-        });
+        return frontEndCache.createPrivateCache("tags", query, this.getFactory(url), dayInMs);
     }
 }
