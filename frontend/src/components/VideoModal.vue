@@ -3,7 +3,8 @@
     <div class="video-modal">
         <video class="animated-video" 
                 controls
-                loop>
+                loop
+                preload="auto">
             <source v-bind:src="videoDataUrl" 
                     type="video/mp4">
         </video>
