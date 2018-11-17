@@ -1,7 +1,9 @@
 
 <template>
     <div class="video-modal">
-        <video class="animated-video" controls>
+        <video class="animated-video" 
+                controls
+                loop>
             <source v-bind:src="videoDataUrl" 
                     type="video/mp4">
         </video>
@@ -14,8 +16,7 @@
                 </p>
                 <ul class="tag-list"
                     v-show="tagListActive">
-                    <!-- Place every single tag in here.
-                    If a tag is clicked,
+                    <!-- If a tag is clicked,
                     Add it to the taglist. -->
                     <li class="tag-list-item"
                         v-for="tag in videoTags"
@@ -29,11 +30,11 @@
 <script>
 
 export default {
-  name: 'VideoModal',
+  name: "VideoModal",
   data: function () {
     return {
         tagListActive: false,
-    }
+    };
   },
   props: {
     videoDataUrl: String,
@@ -44,7 +45,7 @@ export default {
           this.tagListActive = !this.tagListActive;
       }
   }
-}
+};
 
 </script>
 

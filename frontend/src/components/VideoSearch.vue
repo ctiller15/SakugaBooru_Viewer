@@ -4,6 +4,7 @@
         <div class="video-search">
             <input  v-model="searchQuery"
                     type="text"
+                    placeholder="ex: dragon_ball_z"
                     v-on:input="debouncedTypeAhead($event)">
             <button v-on:click="conductSearch(searchQuery)"
                     ref="searchButton">Search!</button>
@@ -41,7 +42,7 @@ export default {
   },
   methods: {
       conductSearch(query) {
-          api.searchBooru(query)
+          api.searchBooru(query.toLowerCase())
             .then((response) => {
                 this.$emit("update-data", response);
             });
@@ -52,7 +53,7 @@ export default {
       },
       debouncedTypeAhead(){
           // Creates, and then uses the debounce function.
-          const query = this.updateCurrentSearchParamAndReturn();
+          const query = this.updateCurrentSearchParamAndReturn().toLowerCase();
           const debounceFunc = perf.debounce(250, this.typeAheadSearch(query), this.timerId);
           this.timerId = debounceFunc();
       },
