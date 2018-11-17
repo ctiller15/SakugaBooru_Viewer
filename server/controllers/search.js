@@ -25,7 +25,6 @@ router.get('/:searchQuery', (req, res) => {
                                 m.videoTags = m.tags.split(" ");
                                 return m;
                             });
-            //console.log(resData);
             res.send(resData);
         });
 });

@@ -23,7 +23,7 @@
 
 <script>
 
-import APIService from '../services/search.svc.js';
+import APIService from "../services/search.svc.js";
 import PerformanceHelperService from '../services/performanceHelper.svc.js';
 const api = new APIService();
 const perf = new PerformanceHelperService();
@@ -45,6 +45,7 @@ export default {
             .then((response) => {
                 this.$emit("update-data", response);
             });
+        console.log("Broke it!");
         this.searchQuery = "";
         this.baseResultString = "";
         this.typeAheadResults = [];

@@ -1,5 +1,5 @@
-import axios from 'axios';
-import frontEndCache from './cache.svc.js';
+import axios from "axios";
+import frontEndCache from "./cache.svc.js";
 
 export default class APIService{
     constructor() {
@@ -9,13 +9,13 @@ export default class APIService{
     getFactory(url){
         const getFunc = () => {
             return axios.get(url);
-        }
+        };
 
         return getFunc;
     }
 
     searchBooru(query = "") {
-        const baseUrl = 'http://localhost:3000/search/';
+        const baseUrl = "http://localhost:3000/search/";
         const fiveMinMs = 300000;
 
         let url = baseUrl;
@@ -27,7 +27,7 @@ export default class APIService{
     }
 
     getBooruTags(query) {
-        const baseUrl = 'http://localhost:3000/tags/';
+        const baseUrl = "http://localhost:3000/tags/";
         const dayInMs = 86400000;
 
         let url = baseUrl;

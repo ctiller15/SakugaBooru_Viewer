@@ -38,7 +38,7 @@ export default {
       searchBoxButton: null,
       searchBoxResults: null,
       searchBoxActive: false,
-    }
+    };
   },
   props: {
     msg: String
@@ -74,7 +74,7 @@ export default {
   created () {
       this.defaultSearch();
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
