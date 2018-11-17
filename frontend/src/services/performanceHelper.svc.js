@@ -14,6 +14,6 @@ export default class PerformanceHelperService{
             }, delay);
 
             return timerId;
-        }
+        };
     }
 }

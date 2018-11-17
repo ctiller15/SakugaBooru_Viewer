@@ -22,7 +22,7 @@ class cacheService{
                 const storageObject = {
                     cacheData: response.data,
                     time: nowms
-                }
+                };
                 sessionStorage.setItem(storageKey, JSON.stringify(storageObject));
                 return storageObject.cacheData;
             });

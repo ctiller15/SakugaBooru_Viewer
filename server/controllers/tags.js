@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const cacheSvc = require("../middleware/cache");
+
+router.use(cacheSvc(86400));
 
 const {getBooruTags} = require("../services/tags.svc.js")
 

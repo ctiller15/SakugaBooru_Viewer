@@ -24,12 +24,12 @@
 <script>
 
 import APIService from "../services/search.svc.js";
-import PerformanceHelperService from '../services/performanceHelper.svc.js';
+import PerformanceHelperService from "../services/performanceHelper.svc.js";
 const api = new APIService();
 const perf = new PerformanceHelperService();
 
 export default {
-  name: 'VideoSearch',
+  name: "VideoSearch",
   data: function () {
     return {
       searchQuery: "",
@@ -37,7 +37,7 @@ export default {
       typeAheadResults: [],
       baseResultString: "",
       currentSearchParam: "",
-    }
+    };
   },
   methods: {
       conductSearch(query) {
@@ -45,7 +45,6 @@ export default {
             .then((response) => {
                 this.$emit("update-data", response);
             });
-        console.log("Broke it!");
         this.searchQuery = "";
         this.baseResultString = "";
         this.typeAheadResults = [];
@@ -70,7 +69,7 @@ export default {
                 this.typeAheadResults = [];
                 this.$emit("search-box-inactive");
             }
-          }
+          };
       },
       updateSearchParams(resultName) {
           if(this.baseResultString === ""){
@@ -96,7 +95,7 @@ export default {
   mounted() {
       this.$emit("search-box-mounted", this.$refs);
   }
-}
+};
 
 </script>
 
