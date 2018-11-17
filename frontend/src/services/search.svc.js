@@ -1,5 +1,6 @@
 import axios from "axios";
 import frontEndCache from "./cache.svc.js";
+const baseUrl = "http://localhost:3000";
 
 export default class APIService{
     constructor() {
@@ -15,10 +16,9 @@ export default class APIService{
     }
 
     searchBooru(query = "") {
-        const baseUrl = "http://localhost:3000/search/";
         const fiveMinMs = 300000;
 
-        let url = baseUrl;
+        let url = `${baseUrl}/search/`;
 
         if(query){
             url += `${query}/`;
@@ -27,10 +27,9 @@ export default class APIService{
     }
 
     getBooruTags(query) {
-        const baseUrl = "http://localhost:3000/tags/";
         const dayInMs = 86400000;
 
-        let url = baseUrl;
+        let url = `${baseUrl}/tags/`;
 
         if(query) {
             url += `${query}/`;

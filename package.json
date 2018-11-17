@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config frontend/build/webpack.config.dev.js",
-    "dev": "webpack-dev-server --config frontend/build/webpack.config.dev.js"
+    "dev": "webpack-dev-server --config frontend/build/webpack.config.dev.js",
+    "start-server": "node server/app.js",
+    "start-frontend": "npm run serve --prefix ./frontend",
+    "start": "npm run start-server | npm run start-frontend"
   },
   "author": "Christopher Tiller",
   "license": "ISC",

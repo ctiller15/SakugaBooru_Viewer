@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const config = require("./config/config");
+
+const port = config !== null ? process.env.PORT : 8080;
 
 // grabbing controllers
 const search = require("./controllers/search");
