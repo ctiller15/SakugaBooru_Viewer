@@ -20,9 +20,8 @@ export default class APIService{
 
         let url = `${baseUrl}/search/`;
 
-        if(query){
-            url += `${query}/`;
-        }
+        url += `${query}/`;
+
         return frontEndCache.createPrivateCache("search", query, this.getFactory(url), fiveMinMs);
     }
 

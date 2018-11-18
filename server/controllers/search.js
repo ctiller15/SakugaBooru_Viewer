@@ -6,28 +6,25 @@ router.use(cacheSvc(300));
 
 const {getBooruData} = require("../services/search.svc.js");
 
-router.get('/', (req, res) => {
-    getBooruData()
-        .then((response) => {
-            const resData = response.map((m) => {
-                                m.videoActive = false;
-                                m.videoTags = m.tags.split(" ");
-                                return m;
-                            });
-            res.send(resData);
-        });
-});
-
-router.get('/:searchQuery', (req, res) => {
-    const searchQuery = req.params.searchQuery;
+router.get('/:searchQuery?', (req, res) => {
+    const searchQuery = req.params.searchQuery || "";
     getBooruData(searchQuery)
         .then((response) => {
+            let binnedData = [];
             const resData = response.map((m) => {
                                 m.videoActive = false;
                                 m.videoTags = m.tags.split(" ");
                                 return m;
                             });
-            res.send(resData);
+            
+            for(let i = 0; i < resData.length; i+=10){
+                if(i === 0){
+                    binnedData.push(resData.slice(0,10));
+                } else{
+                    binnedData.push(resData.slice(i, i + 10));
+                }
+            }
+            res.send(binnedData);
         });
 });
 

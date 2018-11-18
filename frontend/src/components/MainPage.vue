@@ -1,19 +1,21 @@
 <template>
   <div v-on:click="checkPageClick($event)">
-    <VideoSearch v-on:update-data="searchData = $event"
+    <VideoSearch v-on:update-data="updateSearchData($event)"
                  v-on:search-box-mounted="initializeRefs($event)"
                  v-bind:searchBoxActive="searchBoxActive"></VideoSearch>
     <ul class="video-search-results"
-        v-if="searchData.length > 0">
-      <li v-for="item in searchData"
+        v-if="searchDataPage.length > 0">
+      <li v-for="item in searchDataPage"
           v-bind:key="item.id"
-          v-on:click="updateVideoActive(searchData, item.id)">
+          v-on:click="updateVideoActive(searchDataPage, item.id)">
         <VideoBox v-bind:videoData="item"></VideoBox>
       </li>
     </ul>
     <div v-else>
       Couldn't find anything! Try another search?
     </div>
+    <FooterSection v-bind:searchDataLength="searchData.length"
+                   v-on:page-updated="updatePage($event)"></FooterSection>
   </div>
 </template>
 
@@ -21,6 +23,7 @@
 import APIService from "../services/search.svc.js";
 import VideoBox from "../components/VideoBox.vue";
 import VideoSearch from "../components/VideoSearch.vue";
+import FooterSection from "../components/FooterSection.vue";
 
 const api = new APIService();
 
@@ -29,9 +32,11 @@ export default {
   components: {
     VideoBox,
     VideoSearch,
+    FooterSection,
   },
   data: function () {
     return {
+      searchDataPage: [],
       searchData: [],
       searchBoxElement: null,
       searchBoxButton: null,
@@ -50,7 +55,7 @@ export default {
                                       return m;
                                     });
 
-      this.searchData = updatedVideoActivity;
+      this.searchDataPage = updatedVideoActivity;
     },
     checkPageClick($event){
       const searchBoxClicked = $event.path.includes(this.searchBoxElement);
@@ -65,9 +70,18 @@ export default {
     },
     defaultSearch(){
       return api.searchBooru()
-      .then((response) => {
-          this.searchData = response;
-      });
+        .then((response) => {
+            this.searchData = response;
+            this.searchDataPage = response[0];
+        });
+    },
+    updateSearchData($event){
+      this.searchData = $event;
+      this.searchDataPage = $event[0];
+    },
+    updatePage($event){
+      console.log($event);
+      this.searchDataPage = this.searchData[$event];
     }
   },
   created () {
