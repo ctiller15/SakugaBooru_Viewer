@@ -1,11 +1,10 @@
 <template>
   <div v-on:click="checkPageClick($event)">
-    <h1>{{ msg }}</h1>
-    <div class="video-images"></div>
     <VideoSearch v-on:update-data="searchData = $event"
                  v-on:search-box-mounted="initializeRefs($event)"
                  v-bind:searchBoxActive="searchBoxActive"></VideoSearch>
-    <ul v-if="searchData.length > 0">
+    <ul class="video-search-results"
+        v-if="searchData.length > 0">
       <li v-for="item in searchData"
           v-bind:key="item.id"
           v-on:click="updateVideoActive(searchData, item.id)">
@@ -19,14 +18,14 @@
 </template>
 
 <script>
-import APIService from '../services/search.svc.js';
-import VideoBox from '../components/VideoBox.vue';
-import VideoSearch from '../components/VideoSearch.vue';
+import APIService from "../services/search.svc.js";
+import VideoBox from "../components/VideoBox.vue";
+import VideoSearch from "../components/VideoSearch.vue";
 
 const api = new APIService();
 
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   components: {
     VideoBox,
     VideoSearch,
@@ -79,16 +78,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.video-search-results {
+  width: 100%;
+  margin: 70px 0px 0px;
 }
+
 ul {
   list-style-type: none;
   padding: 0;
 }
 li {
   display: inline-block;
-  margin: 0 10px;
+  width: 100%;
 }
 a {
   color: #42b983;

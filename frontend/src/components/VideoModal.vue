@@ -51,6 +51,10 @@ export default {
 </script>
 
 <style scoped>
+    .video-modal{
+        align-self: center;
+    }
+
     .animated-video{
         max-width: 100%;
     }

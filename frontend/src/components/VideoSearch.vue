@@ -2,12 +2,14 @@
     <div class="search-box"
         ref="searchBox">
         <div class="video-search">
-            <input  v-model="searchQuery"
+            <input  class="video-search-input"
+                    v-model="searchQuery"
                     type="text"
                     placeholder="ex: dragon_ball_z"
                     v-on:input="debouncedTypeAhead($event)">
-            <button v-on:click="conductSearch(searchQuery)"
-                    ref="searchButton">Search!</button>
+            <button class="video-search-button"
+                    v-on:click="conductSearch(searchQuery)"
+                    ref="searchButton">S</button>
         </div>
         <div class="typeahead-results"
             v-show="searchBoxActive">
@@ -100,13 +102,39 @@ export default {
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.typeahead-results .results-list{
-    list-style: none;
-}
+    .search-box{
+        position: fixed;
+        top:0;
+        left:0;
+        width: 100%;
+        padding: 20px 0px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: white;
+        z-index: 1;
+    }
 
-.text-left {
-    text-align: left;
-}
+    .video-search{
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .video-search-input{
+        width: 70%;
+    }
+
+    .video-search-button{
+        width: 20%;
+    }
+
+    .typeahead-results .results-list{
+        list-style: none;
+    }
+
+    .text-left {
+        text-align: left;
+    }
 </style>
