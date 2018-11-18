@@ -4,7 +4,8 @@
         <video class="animated-video" 
                 controls
                 loop
-                preload="auto">
+                preload="auto"
+                autoplay>
             <source v-bind:src="videoDataUrl" 
                     type="video/mp4">
         </video>
@@ -53,6 +54,10 @@ export default {
 <style scoped>
     .video-modal{
         align-self: center;
+    }
+
+    .video-modal > * {
+        max-width: 100%;
     }
 
     .animated-video{

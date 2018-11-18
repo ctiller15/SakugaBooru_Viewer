@@ -3,8 +3,8 @@
         ref="searchBox">
         <div class="video-search">
             <input  class="video-search-input"
-                    v-model="searchQuery"
                     type="text"
+                    v-bind:value="searchQuery"
                     placeholder="ex: dragon_ball_z"
                     v-on:input="debouncedTypeAhead($event)">
             <button class="video-search-button"
@@ -53,8 +53,9 @@ export default {
         this.typeAheadResults = [];
         this.$emit("search-box-inactive");
       },
-      debouncedTypeAhead(){
+      debouncedTypeAhead($event){
           // Creates, and then uses the debounce function.
+          this.searchQuery = $event.target.value;
           const query = this.updateCurrentSearchParamAndReturn().toLowerCase();
           const debounceFunc = perf.debounce(250, this.typeAheadSearch(query), this.timerId);
           this.timerId = debounceFunc();
@@ -124,14 +125,24 @@ export default {
 
     .video-search-input{
         width: 70%;
+        border-radius: 5px;
+        height: 1.5em;
     }
 
     .video-search-button{
         width: 20%;
     }
 
+    .typeahead-results{
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
     .typeahead-results .results-list{
         list-style: none;
+        padding: 0 5%;
+        margin: 0;
     }
 
     .text-left {
