@@ -1,8 +1,18 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from "vue";
+import App from "./App.vue";
+import VueMq from "vue-mq";
 
-Vue.config.productionTip = false
+Vue.use(VueMq, {
+  breakpoints: { // default breakpoints - customize this
+    mobile: 450,
+    tablet: 1025,
+    desktop: 1367,
+    bigDesktop: Infinity
+  }
+});
+
+Vue.config.productionTip = false;
 
 new Vue({
   render: h => h(App)
-}).$mount('#app')
+}).$mount("#app");
