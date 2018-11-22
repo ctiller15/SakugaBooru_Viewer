@@ -44,7 +44,7 @@ export default {
   },
   methods: {
       conductSearch(query) {
-          api.searchBooru(query.toLowerCase())
+          api.searchBooru(query.toLowerCase(), this.$mq)
             .then((response) => {
                 this.$emit("update-data", response);
             });

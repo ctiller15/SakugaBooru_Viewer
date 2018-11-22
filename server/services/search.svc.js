@@ -1,7 +1,8 @@
 const rp = require("request-promise-native");
 
-const getBooruData = (query) => {
-    let uri = "https://www.sakugabooru.com/post.json?limit=50";
+const getBooruData = (query, pageCount) => {
+    const limit = Number(pageCount) * 5;
+    let uri = `https://www.sakugabooru.com/post.json?limit=${limit}`;
     if(query){
         uri += `&tags=${query}`;
     }

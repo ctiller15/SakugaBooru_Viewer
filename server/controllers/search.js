@@ -6,9 +6,10 @@ router.use(cacheSvc(300));
 
 const {getBooruData} = require("../services/search.svc.js");
 
-router.get('/:searchQuery?', (req, res) => {
+router.get('/:searchQuery?/:resultPageCount', (req, res) => {
     const searchQuery = req.params.searchQuery || "";
-    getBooruData(searchQuery)
+    const pageCount = Number(req.params.resultPageCount) || 10
+    getBooruData(searchQuery, pageCount)
         .then((response) => {
             let binnedData = [];
             const resData = response.map((m) => {
@@ -17,11 +18,14 @@ router.get('/:searchQuery?', (req, res) => {
                                 return m;
                             });
             
-            for(let i = 0; i < resData.length; i+=10){
+            for(let i = 0; i < resData.length; i+=pageCount){
+                console.log(resData.length);
+                console.log(i);
+                console.log(pageCount);
                 if(i === 0){
-                    binnedData.push(resData.slice(0,10));
+                    binnedData.push(resData.slice(0,pageCount));
                 } else{
-                    binnedData.push(resData.slice(i, i + 10));
+                    binnedData.push(resData.slice(i, i + pageCount));
                 }
             }
             res.send(binnedData);

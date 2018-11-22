@@ -99,7 +99,7 @@ export default {
       this.searchBoxResults = $event["resultsList"];
     },
     defaultSearch(){
-      return api.searchBooru()
+      return api.searchBooru("", this.$mq)
         .then((response) => {
             this.searchData = response;
             this.searchDataPage = response[0];
