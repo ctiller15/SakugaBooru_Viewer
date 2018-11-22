@@ -39,7 +39,19 @@
             </div>
         </li>
       </ul>
-    </div> 
+    </div>
+
+    <div v-else-if="$mq === 'desktop'"
+          class="desktop-display">
+        <div class="desktop-video-wrapper">
+          <div class="main-video-desktop">
+              <video  class="active-video-desktop"
+                      v-bind:src="activeVideo['file_url']"
+                      controls
+                      ref="desktopVideo"></video>
+          </div>
+        </div>
+    </div>
 
     <FooterSection v-bind:searchDataLength="searchData.length"
                    v-bind:selectedPage="selectedPage"
@@ -160,13 +172,26 @@ export default {
 }
 
 .video-wrapper {
-    top: 66px;
-    background: gray;
-    height: 500px;
-    width: 100%;
-    position: fixed;
-    display: flex;
-    justify-content: center;
+  top: 66px;
+  background: gray;
+  height: 500px;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+}
+
+.desktop-video-wrapper {
+  margin: 66px 0 66px;
+  height: 65vh;
+}
+
+.main-video-desktop {
+  height: 100%;
+}
+
+.active-video-desktop {
+  height: 100%;
 }
 
 .main-video{

@@ -19,9 +19,6 @@ router.get('/:searchQuery?/:resultPageCount', (req, res) => {
                             });
             
             for(let i = 0; i < resData.length; i+=pageCount){
-                console.log(resData.length);
-                console.log(i);
-                console.log(pageCount);
                 if(i === 0){
                     binnedData.push(resData.slice(0,pageCount));
                 } else{

@@ -21,14 +21,12 @@ export default class APIService{
 
     searchBooru(query = "", screen = "mobile") {
         const fiveMinMs = 300000;
-        console.log(screen);
 
         let url = `${baseUrl}/search/`;
 
         url += `${query}/`;
 
         url += this.screenOptions[screen];
-        console.log(url);
 
         return frontEndCache.createPrivateCache("search", query, this.getFactory(url), fiveMinMs);
     }
