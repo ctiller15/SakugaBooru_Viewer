@@ -27,6 +27,23 @@
                   controls
                   ref="tabletVideo"></video>
         </div>
+          <div class="video-info">
+            <div class="video-tags">
+                <p v-on:click="tagDisplayToggle()">
+                    <span v-if="tagListActive">Hide</span>
+                    <span v-else>Show</span> 
+                    tags
+                </p>
+                <ul class="tag-list-tablet"
+                    v-show="tagListActive">
+                    <!-- If a tag is clicked,
+                    Add it to the taglist. -->
+                    <li class="tag-list-item"
+                        v-for="tag in activeVideo['videoTags']"
+                        v-bind:key="tag">{{ tag }}</li>
+                </ul>
+            </div>
+        </div>
       </div>
       <ul class="tablet-video-icons">
         <li class="tablet-video-icon"
@@ -49,6 +66,19 @@
                       v-bind:src="activeVideo['file_url']"
                       controls
                       ref="desktopVideo"></video>
+          </div>
+          <div class="desktop-video-icons-container">
+            <ul class="desktop-video-icons">
+              <li class="desktop-video-icon"
+                  v-bind:key="item.id"
+                  v-for="(item, index) in searchDataPage"
+                  v-on:click="updateMainVideo(searchDataPage, index)">
+                <div class="desktop-image-box">
+                  <img class="desktop-preview-image"
+                      v-bind:src="item['preview_url']">
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
     </div>
@@ -84,6 +114,7 @@ export default {
       searchBoxResults: null,
       searchBoxActive: false,
       selectedPage: 1,
+      tagListActive: false,
     };
   },
   props: {
@@ -118,6 +149,9 @@ export default {
             this.activeVideo = this.searchDataPage[0];
             this.activeVideo.videoActive = true;
         });
+    },
+    tagDisplayToggle() {
+      this.tagListActive = !this.tagListActive;
     },
     updateSearchData($event){
       this.searchData = $event;
@@ -178,16 +212,29 @@ export default {
   width: 100%;
   position: fixed;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 10px 0;
 }
 
 .desktop-video-wrapper {
   margin: 66px 0 66px;
-  height: 65vh;
+  height: 75vh;
+  display: flex;
+  justify-content: space-between;
 }
 
 .main-video-desktop {
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  width: 70%;
+}
+
+.desktop-video-icons-container{
+  width: 30%;
   height: 100%;
+  overflow-y: scroll;
 }
 
 .active-video-desktop {
@@ -196,11 +243,18 @@ export default {
 
 .main-video{
   top: 66px;
-  position: fixed;
   min-width: 80%;
   max-width: 768px;
   max-height: 500px;
   align-self: center;
+}
+
+.tag-list-tablet {
+  display: flex;
+}
+
+.video-tags {
+  margin-top: 30px;
 }
 
 .main-video > * {
