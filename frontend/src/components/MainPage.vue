@@ -4,9 +4,10 @@
                  v-on:search-box-mounted="initializeRefs($event)"
                  v-bind:searchBoxActive="searchBoxActive"></VideoSearch>
     <div v-if="$mq === 'mobile'">
-      <ul class="video-search-results"
+      <MobileDisplay v-bind:searchDataPage="searchDataPage"
+                     v-on:video-updated="updateVideoActive($event)"></MobileDisplay>
+      <!-- <ul class="video-search-results"
           v-if="searchDataPage.length > 0">
-              <p>{{ $mq }}</p>
         <li v-for="item in searchDataPage"
             v-bind:key="item.id"
             v-on:click="updateVideoActive(searchDataPage, item.id)">
@@ -15,7 +16,7 @@
       </ul>
       <div v-else>
         Couldn't find anything! Try another search?
-      </div>
+      </div> -->
     </div>
 
     <div v-else-if="$mq === 'tablet'"
@@ -105,6 +106,7 @@
 
 <script>
 import APIService from "../services/search.svc.js";
+import MobileDisplay from "../components/MobileDisplay.vue";
 import VideoBox from "../components/VideoBox.vue";
 import VideoSearch from "../components/VideoSearch.vue";
 import FooterSection from "../components/FooterSection.vue";
@@ -114,6 +116,7 @@ const api = new APIService();
 export default {
   name: "HelloWorld",
   components: {
+    MobileDisplay,
     VideoBox,
     VideoSearch,
     FooterSection,
@@ -135,9 +138,11 @@ export default {
     msg: String
   },
   methods: {
-    updateVideoActive(data, ind){
+    updateVideoActive($event){
+      const data = $event.data;
+      const id = $event.id;
       const updatedVideoActivity = data.map((m) => {
-                                      m.videoActive = m.id === ind;
+                                      m.videoActive = m.id === id;
                                       m.videoTags = m.tags.split(" ");
                                       return m;
                                     });
