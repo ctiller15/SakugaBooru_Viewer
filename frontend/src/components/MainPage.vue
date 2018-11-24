@@ -8,8 +8,7 @@
                      v-on:video-updated="updateVideoActive($event)"></MobileDisplay>
     </div>
 
-    <div v-else-if="$mq === 'tablet'"
-      class="tablet-display">
+    <div v-else-if="$mq === 'tablet'">
       <TabletDisplay v-bind:activeVideo="activeVideo"
                      v-bind:searchDataPage="searchDataPage"
                      v-on:main-video-updated="updateMainVideo($event)"></TabletDisplay>
@@ -19,41 +18,6 @@
       <DesktopDisplay v-bind:activeVideo="activeVideo"
                       v-bind:searchDataPage="searchDataPage"
                       v-on:main-video-updated="updateMainVideo($event)"></DesktopDisplay>
-        <!-- <div class="desktop-video-wrapper">
-          <div class="main-video-desktop">
-              <video  class="active-video-desktop"
-                      v-bind:src="activeVideo['file_url']"
-                      controls
-                      ref="desktopVideo"></video>
-          </div>
-          <div class="video-info-desktop">
-                <p v-on:click="tagDisplayToggle()">
-                    <span v-if="tagListActive">Hide</span>
-                    <span v-else>Show</span> 
-                    tags
-                </p>
-                <ul class="tag-list-tablet"
-                    v-show="tagListActive">
-                    <li class="tag-list-item"
-                        v-for="tag in activeVideo['videoTags']"
-                        v-bind:key="tag">{{ tag }}</li>
-                </ul>
-          </div>
-
-        </div>
-        <div class="desktop-video-icons-container">
-          <ul class="desktop-video-icons">
-            <li class="desktop-video-icon"
-                v-bind:key="item.id"
-                v-for="(item, index) in searchDataPage"
-                v-on:click="updateMainVideo(searchDataPage, index)">
-              <div class="desktop-image-box">
-                <img class="desktop-preview-image"
-                    v-bind:src="item['preview_url']">
-              </div>
-            </li>
-          </ul>
-        </div> -->
     </div>
 
     <FooterSection v-bind:searchDataLength="searchData.length"
@@ -162,35 +126,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.desktop-display {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin: 66px 0 66px;
-  height: 80vh;
-}
-
-.desktop-video-wrapper {
-  width: 67%;
-  display: flex;
-  flex-direction: column;
-}
-
-.main-video-desktop {
-  height: 80%;
-  display: flex;
-  justify-content: center;
-}
-
-.desktop-video-icons-container{
-  width: 33%;
-  height: 100%;
-  overflow-y: scroll;
-}
-
-.active-video-desktop {
-  height: 100%;
-}
 
 .main-video > * {
   max-height: 400px;

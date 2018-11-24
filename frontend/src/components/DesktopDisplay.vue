@@ -8,12 +8,13 @@
                       ref="desktopVideo"></video>
           </div>
           <div class="video-info-desktop">
-                <p v-on:click="tagDisplayToggle()">
+                <p  class="tag-toggle-button"
+                    v-on:click="tagDisplayToggle()">
                     <span v-if="tagListActive">Hide</span>
                     <span v-else>Show</span> 
                     tags
                 </p>
-                <ul class="tag-list-tablet"
+                <ul class="tag-list-desktop"
                     v-show="tagListActive">
                     <li class="tag-list-item"
                         v-for="tag in activeVideo['videoTags']"
@@ -65,3 +66,64 @@
         }
     };
 </script>
+
+<style scoped>
+    .desktop-display {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin: 66px 0 66px;
+        height: 80vh;
+    }
+
+    .desktop-video-wrapper {
+        margin: 0 20px;
+        width: 67%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .main-video-desktop {
+        height: 80%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .active-video-desktop {
+        height: 100%;
+    }
+
+    .desktop-video-icons-container{
+        width: 33%;
+        height: 100%;
+        overflow-y: scroll;
+    }
+
+    .video-info-desktop{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tag-toggle-button {
+        margin: 0;
+        padding: 10px;
+    }
+
+    .tag-list-desktop {
+        list-style: none;
+        display: flex;
+        padding: 0;
+        width: 80%;
+    }
+
+    .tag-list-item {
+        display: inline-block;
+        padding: 10px;
+    }
+
+    .desktop-video-icons{
+        list-style: none;
+    }
+</style>
