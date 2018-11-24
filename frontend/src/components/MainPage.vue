@@ -15,9 +15,11 @@
                      v-on:main-video-updated="updateMainVideo($event)"></TabletDisplay>
     </div>
 
-    <div v-else-if="$mq === 'desktop'"
-          class="desktop-display">
-        <div class="desktop-video-wrapper">
+    <div v-else-if="$mq === 'desktop'">
+      <DesktopDisplay v-bind:activeVideo="activeVideo"
+                      v-bind:searchDataPage="searchDataPage"
+                      v-on:main-video-updated="updateMainVideo($event)"></DesktopDisplay>
+        <!-- <div class="desktop-video-wrapper">
           <div class="main-video-desktop">
               <video  class="active-video-desktop"
                       v-bind:src="activeVideo['file_url']"
@@ -51,7 +53,7 @@
               </div>
             </li>
           </ul>
-        </div>
+        </div> -->
     </div>
 
     <FooterSection v-bind:searchDataLength="searchData.length"
@@ -64,6 +66,7 @@
 import APIService from "../services/search.svc.js";
 import MobileDisplay from "../components/MobileDisplay.vue";
 import TabletDisplay from "../components/TabletDisplay.vue";
+import DesktopDisplay from "../components/DesktopDisplay.vue";
 import VideoBox from "../components/VideoBox.vue";
 import VideoSearch from "../components/VideoSearch.vue";
 import FooterSection from "../components/FooterSection.vue";
@@ -75,6 +78,7 @@ export default {
   components: {
     MobileDisplay,
     TabletDisplay,
+    DesktopDisplay,
     VideoBox,
     VideoSearch,
     FooterSection,
