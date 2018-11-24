@@ -6,17 +6,6 @@
     <div v-if="$mq === 'mobile'">
       <MobileDisplay v-bind:searchDataPage="searchDataPage"
                      v-on:video-updated="updateVideoActive($event)"></MobileDisplay>
-      <!-- <ul class="video-search-results"
-          v-if="searchDataPage.length > 0">
-        <li v-for="item in searchDataPage"
-            v-bind:key="item.id"
-            v-on:click="updateVideoActive(searchDataPage, item.id)">
-          <VideoBox v-bind:videoData="item"></VideoBox>
-        </li>
-      </ul>
-      <div v-else>
-        Couldn't find anything! Try another search?
-      </div> -->
     </div>
 
     <div v-else-if="$mq === 'tablet'"
@@ -204,11 +193,6 @@ export default {
   width: 100%;
   margin: 66px 0 66px;
   height: 80vh;
-}
-
-.video-search-results {
-  width: 100%;
-  margin: 70px 0px 70px;
 }
 
 .tablet-display {
