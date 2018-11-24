@@ -9,8 +9,11 @@
     </div>
 
     <div v-else-if="$mq === 'tablet'"
-         class="tablet-display">
-      <div class="video-wrapper">
+      class="tablet-display">
+      <TabletDisplay v-bind:activeVideo="activeVideo"
+                     v-bind:searchDataPage="searchDataPage"
+                     v-on:main-video-updated="updateMainVideo($event)"></TabletDisplay>
+      <!-- <div class="video-wrapper">
         <div class="main-video">
           <video  class="active-video"
                   v-bind:src="activeVideo['file_url']"
@@ -26,8 +29,6 @@
                 </p>
                 <ul class="tag-list-tablet"
                     v-show="tagListActive">
-                    <!-- If a tag is clicked,
-                    Add it to the taglist. -->
                     <li class="tag-list-item"
                         v-for="tag in activeVideo['videoTags']"
                         v-bind:key="tag">{{ tag }}</li>
@@ -45,7 +46,7 @@
                     v-bind:src="item['preview_url']">
             </div>
         </li>
-      </ul>
+      </ul> -->
     </div>
 
     <div v-else-if="$mq === 'desktop'"
@@ -96,6 +97,7 @@
 <script>
 import APIService from "../services/search.svc.js";
 import MobileDisplay from "../components/MobileDisplay.vue";
+import TabletDisplay from "../components/TabletDisplay.vue";
 import VideoBox from "../components/VideoBox.vue";
 import VideoSearch from "../components/VideoSearch.vue";
 import FooterSection from "../components/FooterSection.vue";
@@ -106,6 +108,7 @@ export default {
   name: "HelloWorld",
   components: {
     MobileDisplay,
+    TabletDisplay,
     VideoBox,
     VideoSearch,
     FooterSection,
@@ -174,8 +177,10 @@ export default {
       this.activeVideo = this.searchDataPage[0];
       this.activeVideo.videoActive = true;
     },
-    updateMainVideo(pageData, index){
-      this.activeVideo = pageData[index];
+    updateMainVideo($event){
+      const data = $event.data;
+      const index = $event.index;
+      this.activeVideo = data[index];
       this.activeVideo.videoActive = true;
     },
   },
