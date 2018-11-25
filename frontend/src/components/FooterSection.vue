@@ -49,19 +49,27 @@
     .page {
         width: 30px;
         height: 30px;
-        border: 1px solid black;
+        border: 1px solid white;
+        color: #EE7B5D;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        margin-right: 5px;
     }
 
     .page:hover {
         cursor: pointer;
     }
+    
+    .page.selected {
+        border: none;
+        background: none;
+    }
 
     .selected {
-        color: red;
+        color: white;
+        font-weight: bold;
     }
 
     @media screen and (min-width: 1024px){
