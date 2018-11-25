@@ -9,7 +9,7 @@
                     v-on:input="debouncedTypeAhead($event)">
             <button class="video-search-button"
                     v-on:click="conductSearch(searchQuery)"
-                    ref="searchButton">S</button>
+                    ref="searchButton"><span class="fa fa-search"></span></button>
         </div>
         <div class="typeahead-results"
             v-show="searchBoxActive">
@@ -113,24 +113,31 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-        background: white;
+        background: #111111;
         z-index: 1;
     }
 
     .video-search{
         width: 90%;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
     }
 
     .video-search-input{
         width: 70%;
-        border-radius: 5px;
+        border-radius: 5px 0px 0px 5px;
         height: 1.5em;
+        border-style: none;
+        padding: 5px;
     }
 
     .video-search-button{
         width: 20%;
+        border-width: 0;
+        border-radius: 0px 5px 5px 0px;
+        border: 1px solid white;
+        background: #222222;
+        color: #EE7B5D;
     }
 
     .typeahead-results{

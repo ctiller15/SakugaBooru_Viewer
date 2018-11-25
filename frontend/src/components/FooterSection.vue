@@ -1,8 +1,8 @@
 <template>
     <div class="footer-main">
-        <div>footer section...</div>
         <ul class="pages">
-            <li v-bind:key="index"
+            <li class="page"
+                v-bind:key="index"
                 v-bind:class="{selected: n === selectedPage}"
                 v-for="(n, index) in searchDataLength"
                 v-on:click="updatePage(index)">{{ n }}</li>
@@ -32,7 +32,10 @@
         bottom: 0;
         height: 60px;
         width: 100%;
-        background: white;
+        background: #111111;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .pages {
@@ -43,7 +46,27 @@
         padding: 0;
     }
 
+    .page {
+        width: 30px;
+        height: 30px;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .page:hover {
+        cursor: pointer;
+    }
+
     .selected {
         color: red;
+    }
+
+    @media screen and (min-width: 1024px){
+        .pages {
+            width: 20%;
+        }
     }
 </style>

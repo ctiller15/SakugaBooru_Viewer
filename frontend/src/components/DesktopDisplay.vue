@@ -104,6 +104,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        height: 20%;
+        overflow-y: auto;
     }
 
     .tag-toggle-button {
@@ -114,13 +116,14 @@
     .tag-list-desktop {
         list-style: none;
         display: flex;
+        flex-wrap: wrap;
         padding: 0;
         width: 80%;
     }
 
     .tag-list-item {
         display: inline-block;
-        padding: 10px;
+        padding: 5px;
     }
 
     .desktop-video-icons{

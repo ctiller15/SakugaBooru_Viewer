@@ -67,7 +67,7 @@ export default {
     .tag-list {
         list-style: none;
         padding: 0;
-        margin: 0;
+        margin: 0 0 20px;
         text-align: left;
     }
 

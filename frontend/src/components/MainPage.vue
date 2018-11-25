@@ -1,6 +1,7 @@
 <template>
   <div v-on:click="checkPageClick($event)">
-    <VideoSearch v-on:update-data="updateSearchData($event)"
+    <VideoSearch class="search-container"
+                 v-on:update-data="updateSearchData($event)"
                  v-on:search-box-mounted="initializeRefs($event)"
                  v-bind:searchBoxActive="searchBoxActive"></VideoSearch>
     <div v-if="$mq === 'mobile'">
