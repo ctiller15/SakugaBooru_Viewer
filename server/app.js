@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const config = require("./config/config");
 
-const port = config !== null ? process.env.PORT : 8080;
+const port = config !== null ? process.env.PORT : 3000;
 
 // grabbing controllers
 const search = require("./controllers/search");

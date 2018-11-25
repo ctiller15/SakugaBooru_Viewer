@@ -9,7 +9,9 @@
     "dev": "webpack-dev-server --config frontend/build/webpack.config.dev.js",
     "start-server": "node server/app.js",
     "start-frontend": "npm run serve --prefix ./frontend",
-    "start": "npm run start-server | npm run start-frontend"
+    "start-frontend-prod": "serve -s ./frontend/dist",
+    "start-dev": "npm run start-server | npm run start-frontend",
+    "start-prod": "npm run start-server | npm run start-frontend-prod"
   },
   "author": "Christopher Tiller",
   "license": "ISC",
