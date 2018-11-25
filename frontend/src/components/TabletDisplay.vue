@@ -77,7 +77,7 @@
 
     .video-wrapper {
         top: 66px;
-        background: gray;
+        background: #222222;
         height: 500px;
         width: 100%;
         position: fixed;
@@ -101,15 +101,24 @@
     }
 
     .video-tags {
-        margin-top: 30px;
+        margin-top: 15px;
     }
 
     .tag-list-tablet {
         list-style: none;
         display: flex;
+        justify-content: center;
+        margin: .5em 0;
+        padding: 0;
+    }
+
+    .tag-list-item {
+        display: inline-block;
+        padding: 5px;
     }
 
     .tablet-video-icons {
+        padding: 0;
         list-style: none;
         margin: 500px 0px 0px;
         display: flex;

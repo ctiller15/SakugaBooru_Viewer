@@ -77,7 +77,7 @@
     }
 
     .desktop-video-wrapper {
-        margin: 0 20px;
+        margin: 15px 20px 0;
         width: 67%;
         display: flex;
         flex-direction: column;
@@ -113,6 +113,10 @@
         padding: 10px;
     }
 
+    .tag-toggle-button:hover {
+        cursor: pointer;
+    }
+
     .tag-list-desktop {
         list-style: none;
         display: flex;
@@ -128,5 +132,28 @@
 
     .desktop-video-icons{
         list-style: none;
+        padding: 0;
+    }
+
+    .desktop-video-icon {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .desktop-image-box{
+        flex-basis: 300px;
+        height: 150px;
+        overflow: hidden;
+        background: white;
+    }
+
+    .desktop-preview-image {
+        width: 100%;
+    }
+
+    .desktop-preview-image:hover {
+        opacity: .8;
+        cursor: pointer;
     }
 </style>

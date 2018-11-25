@@ -140,6 +140,12 @@ export default {
         color: #EE7B5D;
     }
 
+    .video-search-button:hover{
+        background: #777777;
+        color: #F19279;
+        cursor: pointer;
+    }
+
     .typeahead-results{
         display: flex;
         justify-content: flex-start;
@@ -158,5 +164,11 @@ export default {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+    }
+
+    .result-item:hover {
+        background: #777777;
+        color: #F19279;
+        cursor: pointer;
     }
 </style>

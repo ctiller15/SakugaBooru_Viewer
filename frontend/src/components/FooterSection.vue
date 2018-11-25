@@ -58,8 +58,10 @@
         margin-right: 5px;
     }
 
-    .page:hover {
+    .page:hover:not(.selected){
         cursor: pointer;
+        background: #555555;
+        color: #F19279;
     }
     
     .page.selected {
@@ -70,6 +72,10 @@
     .selected {
         color: white;
         font-weight: bold;
+    }
+
+    .selected:hover {
+        cursor: default;
     }
 
     @media screen and (min-width: 1024px){
