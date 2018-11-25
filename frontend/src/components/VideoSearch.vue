@@ -15,7 +15,7 @@
             v-show="searchBoxActive">
             <ul class="results-list"
                 ref="resultsList">
-                <li class="text-left"
+                <li class="result-item"
                     v-for="result in typeAheadResults"
                     v-bind:key="result.id"
                     v-on:click="updateSearchParams(result.name)">{{ result.name }}</li>
@@ -152,7 +152,11 @@ export default {
         margin: 0;
     }
 
-    .text-left {
-        text-align: left;
+    .result-item {
+        border-bottom: 1px dotted #222222;
+        height: 1.5em;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
     }
 </style>
