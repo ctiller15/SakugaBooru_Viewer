@@ -1,6 +1,6 @@
 import axios from "axios";
 import frontEndCache from "./cache.svc.js";
-const baseUrl = "http://localhost:3000";
+const baseUrl = process.env.NODE_ENV === "production" ? `${process.env.BASE_URL}/server`: "http://localhost:3000";
 
 export default class APIService{
     constructor() {
